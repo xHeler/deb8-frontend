@@ -14,7 +14,7 @@ export class APIService {
     let headers = new HttpHeaders();
     const token = this.cookieService.get('auth_key');
     if (token) {
-      headers = headers.set('Authorization', 'Bearer token' + token);
+      headers = headers.set('Authorization', 'token ' + token);
     }
     return headers;
   }
@@ -31,9 +31,11 @@ export class APIService {
     });
   }
 
-  delete(endpoint: string) {
-    return this.http.delete(this.baseUrl + endpoint, {
+  delete(endpoint: string, data: any) {
+    const options = {
       headers: this.getHeaders(),
-    });
+      body: data,
+    };
+    return this.http.request('DELETE', this.baseUrl + endpoint, options);
   }
 }

@@ -1,5 +1,6 @@
 import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { Post } from 'src/app/core/interfaces/Post';
+import { PostService } from 'src/app/core/services/post.service';
 
 @Component({
   selector: 'app-post',
@@ -7,6 +8,8 @@ import { Post } from 'src/app/core/interfaces/Post';
   styleUrls: ['./post.component.scss'],
 })
 export class PostComponent implements OnChanges {
+  constructor(private postService: PostService) {}
+
   @Input() post: Post = {
     post_id: '',
     username: 'terrylucas',
@@ -34,7 +37,17 @@ export class PostComponent implements OnChanges {
   }
 
   toggleLike() {
-    //todo add like to backend
+    if (this.post.post_id != '' && !this.post.isLiked) {
+      this.postService.likePost(this.post.post_id).subscribe((data: any) => {
+        console.log("Like: " + data);
+      });
+      
+    } else if (this.post.post_id != '' && this.post.isLiked) {
+      this.postService.unlikePost(this.post.post_id).subscribe((data: any) => {
+        console.log("UnLike: " + data);
+      });
+    } 
+
     this.post.isLiked = !this.post.isLiked;
     this.post.isLiked ? this.post.likes_count++ : this.post.likes_count--;
   }
