@@ -1,0 +1,6 @@
+<div class="navbar">
+  <a routerLink="home">
+    <p>DEB8</p>
+  </a>
+  <p *ngIf="!hideLogout" class="logout" (click)="handleLogoutClick()">Logout</p>
+</div>

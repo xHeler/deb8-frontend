@@ -1,0 +1,48 @@
+<div class="centered-container">
+  <form (ngSubmit)="onSubmit(loginForm)" #loginForm="ngForm">
+    <div *ngIf="errorMessage" class="error-message">
+      {{ errorMessage }}
+    </div>
+    <div>
+      <label>Username:</label>
+      <input
+        type="text"
+        [(ngModel)]="userLoginData.username"
+        name="username"
+        required
+        #username="ngModel"
+      />
+      <div *ngIf="loginForm.submitted && !username.valid">
+        Username is required.
+      </div>
+    </div>
+    <div>
+      <label>Email:</label>
+      <input
+        type="email"
+        [(ngModel)]="userLoginData.email"
+        name="email"
+        required
+        #email="ngModel"
+      />
+      <div *ngIf="loginForm.submitted && !email.valid">
+        Valid email is required.
+      </div>
+    </div>
+    <div>
+      <label>Password:</label>
+      <input
+        type="password"
+        [(ngModel)]="userLoginData.password"
+        name="password"
+        required
+        minlength="6"
+        #password="ngModel"
+      />
+      <div *ngIf="loginForm.submitted && !password.valid">
+        Password is required and should be at least 6 characters.
+      </div>
+    </div>
+    <button type="submit">Login</button>
+  </form>
+</div>
