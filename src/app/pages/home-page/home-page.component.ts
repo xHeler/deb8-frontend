@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CookieService } from 'ngx-cookie-service';
 import { PostService } from 'src/app/core/services/post.service';
 import { Router } from '@angular/router';
-import { PostResponse } from 'src/app/core/interfaces/Post';
+import { Post, PostResponse } from 'src/app/core/interfaces/Post';
 
 @Component({
   selector: 'app-home-page',
@@ -10,6 +10,8 @@ import { PostResponse } from 'src/app/core/interfaces/Post';
   styleUrls: ['./home-page.component.scss'],
 })
 export class HomePageComponent implements OnInit {
+  posts: Post[] | undefined;
+
   constructor(
     private postService: PostService,
     private cookieService: CookieService,
@@ -23,7 +25,8 @@ export class HomePageComponent implements OnInit {
     }
 
     this.postService.getAllPosts().subscribe((data: any) => {
-      console.log(data);
+      this.posts = data.results;
+      console.log('Posts:', this.posts);
     });
   }
 }
