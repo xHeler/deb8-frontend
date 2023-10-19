@@ -1,0 +1,19 @@
+<div class="post-container">
+  <div class="post-header">
+    <span class="username">{{ post.username }}</span>
+  </div>
+  <img [src]="post.image" alt="Post image" class="post-image" />
+  <div class="post-info">
+    <button class="like-btn" (click)="toggleLike()">
+      <ng-container *ngIf="post.isLiked; else notLiked">❤️</ng-container>
+      <ng-template #notLiked>🤍</ng-template>
+    </button>
+    <span class="likes">{{ post.likes_count | number : "1.0-0" }} likes</span>
+    <button class="comment-btn">💬</button>
+    <span class="comments">{{ post.comments_count }} comments</span>
+    <p class="caption">
+      <span class="username">{{ post.username }}</span> {{ post.description }}
+    </p>
+    <span class="time">{{ post.created_at }}</span>
+  </div>
+</div>
