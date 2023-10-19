@@ -2,46 +2,52 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { UserLogin } from '../interfaces/UserLogin';
+import { UserRegister } from '../interfaces/UserRegister';
 import { CookieService } from 'ngx-cookie-service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class UserService {
-  private URL = '/api/auth/';
+  private readonly BASE_URL = '/api/auth/';
+  private readonly LOGIN_ENDPOINT = 'login/';
+  private readonly REGISTRATION_ENDPOINT = 'registration/';
 
   constructor(private http: HttpClient, private cookieService: CookieService) {}
 
-  logoutUser() {
+  logoutUser(): void {
     this.cookieService.delete('auth_key');
   }
 
   loginUser(userLoginData: UserLogin): Observable<any> {
-    const csrfToken = this.getCookie('csrftoken');
-
-    if (!csrfToken) {
-      throw new Error('CSRF token is missing!');
-    }
-
-    const headers = new HttpHeaders({
-      'Content-Type': 'application/json',
-      'X-CSRFToken': csrfToken,
-    });
-
-    const loginURL = this.URL + 'login/';
-    return this.http.post(loginURL, userLoginData, {
+    const headers = this.createHeaders();
+    return this.http.post(this.BASE_URL + this.LOGIN_ENDPOINT, userLoginData, {
       headers: headers,
       withCredentials: true,
     });
   }
 
-  private getCookie(name: string): string | null {
-    const value = '; ' + document.cookie;
-    const parts = value.split('; ' + name + '=');
+  registerUser(userRegisterData: UserRegister): Observable<any> {
+    const headers = this.createHeaders();
+    return this.http.post(
+      this.BASE_URL + this.REGISTRATION_ENDPOINT,
+      userRegisterData,
+      {
+        headers: headers,
+        withCredentials: true,
+      }
+    );
+  }
 
-    if (parts.length === 2) {
-      return parts.pop()?.split(';')[0] || null;
+  private createHeaders(): HttpHeaders {
+    const csrfToken = this.cookieService.get('csrftoken');
+    if (!csrfToken) {
+      throw new Error('CSRF token is missing!');
     }
-    return null;
+
+    return new HttpHeaders({
+      'Content-Type': 'application/json',
+      'X-CSRFToken': csrfToken,
+    });
   }
 }

@@ -3,4 +3,10 @@
     <p>DEB8</p>
   </a>
   <p *ngIf="!hideLogout" class="logout" (click)="handleLogoutClick()">Logout</p>
+  <p *ngIf="currentRoute === 'login'" class="logout" (click)="goToRegister()">
+    Register
+  </p>
+  <p *ngIf="currentRoute === 'register'" class="logout" (click)="goToLogin()">
+    Login
+  </p>
 </div>

@@ -1,0 +1,67 @@
+<div class="centered-container">
+  <form (ngSubmit)="onSubmit(registerForm)" #registerForm="ngForm">
+    <div *ngIf="errorMessage" class="error-message">
+      {{ errorMessage }}
+    </div>
+    <div>
+      <label>Username:</label>
+      <input
+        type="text"
+        [(ngModel)]="userRegisterData.username"
+        name="username"
+        required
+        #username="ngModel"
+      />
+      <div *ngIf="registerForm.submitted && !username.valid">
+        Username is required.
+      </div>
+    </div>
+    <div>
+      <label>Email:</label>
+      <input
+        type="email"
+        [(ngModel)]="userRegisterData.email"
+        name="email"
+        required
+        #email="ngModel"
+      />
+      <div *ngIf="registerForm.submitted && !email.valid">
+        Email is required and should be valid.
+      </div>
+    </div>
+    <div>
+      <label>Password:</label>
+      <input
+        type="password"
+        [(ngModel)]="userRegisterData.password1"
+        name="password1"
+        required
+        minlength="6"
+        #password1="ngModel"
+      />
+      <div *ngIf="registerForm.submitted && !password1.valid">
+        Password is required and should be at least 6 characters.
+      </div>
+    </div>
+    <div>
+      <label>Confirm Password:</label>
+      <input
+        type="password"
+        [(ngModel)]="userRegisterData.password2"
+        name="password2"
+        required
+        minlength="6"
+        #password2="ngModel"
+      />
+      <div
+        *ngIf="
+          (registerForm.submitted && !password2.valid) ||
+          password2.value !== password1.value
+        "
+      >
+        Passwords must match and should be at least 6 characters.
+      </div>
+    </div>
+    <button type="submit">Register</button>
+  </form>
+</div>

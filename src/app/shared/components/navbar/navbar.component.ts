@@ -9,6 +9,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 })
 export class NavbarComponent {
   public hideLogout: boolean = false;
+  public currentRoute: string | undefined = '';
 
   constructor(
     private userService: UserService,
@@ -26,11 +27,16 @@ export class NavbarComponent {
   }
 
   checkRoute(): void {
-    const currentRoute = this.activatedRoute.snapshot.firstChild?.url[0]?.path;
-    if (currentRoute === 'login' || currentRoute === 'register') {
-      this.hideLogout = true;
-    } else {
-      this.hideLogout = false;
-    }
+    this.currentRoute = this.activatedRoute.snapshot.firstChild?.url[0]?.path;
+    this.hideLogout =
+      this.currentRoute === 'login' || this.currentRoute === 'register';
+  }
+
+  goToRegister(): void {
+    this.router.navigate(['/register']);
+  }
+
+  goToLogin(): void {
+    this.router.navigate(['/login']);
   }
 }
