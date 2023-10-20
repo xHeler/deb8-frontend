@@ -1,4 +1,5 @@
 <div class="navbar">
+  <p *ngIf="!hideLogout" class="add-post" (click)="redirectToAddPost()">Add Post</p>
   <a routerLink="home">
     <p>DEB8</p>
   </a>

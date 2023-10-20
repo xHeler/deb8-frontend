@@ -15,7 +15,16 @@ export class UserService {
 
   constructor(private http: HttpClient, private cookieService: CookieService) {}
 
+  getUsername(): string {
+    const username = this.cookieService.get('username');
+    if (username) {
+      return username;
+    }
+    return '';
+  }
+
   logoutUser(): void {
+    this.cookieService.delete('username');
     this.cookieService.delete('auth_key');
   }
 

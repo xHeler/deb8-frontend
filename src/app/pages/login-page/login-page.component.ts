@@ -22,7 +22,7 @@ export class LoginPageComponent {
   constructor(
     private userService: UserService,
     private cookieService: CookieService,
-    private router: Router,
+    private router: Router
   ) {}
 
   onSubmit(loginForm: NgForm): void {
@@ -32,12 +32,14 @@ export class LoginPageComponent {
           console.log(response);
           if (response && response.key) {
             this.cookieService.set('auth_key', response.key);
+            var username = this.userLoginData.username;
+            this.cookieService.set('username', username);
             this.router.navigate(['/home']);
           }
         },
         (error) => {
           console.error('There was an error during the login:', error);
-          this.errorMessage = "Invalid login credentials.";
+          this.errorMessage = 'Invalid login credentials.';
         }
       );
     }

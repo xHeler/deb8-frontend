@@ -34,4 +34,12 @@ export class PostService extends APIService {
       map((data) => data as LikeResponse)
     );
   }
+
+  createPost(title: string, image: File, description: string): Observable<any> {
+    const formData: FormData = new FormData();
+    formData.append('title', title);
+    formData.append('image', image, image.name);
+    formData.append('description', description);
+    return this.post('posts/create/', formData);
+  }
 }

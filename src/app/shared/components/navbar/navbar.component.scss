@@ -9,13 +9,19 @@
 
     padding: 1rem;
 
+    .add-post {
+        position: absolute;
+        left: 2rem;
+        cursor: pointer;
+    }
+
     .logout {
         position: absolute;
         right: 2rem;
         cursor: pointer;
     }
 
-    .logout:hover {
+    .logout:hover, .add-post:hover {
         color: red
     }
 

@@ -39,4 +39,8 @@ export class NavbarComponent {
   goToLogin(): void {
     this.router.navigate(['/login']);
   }
+
+  redirectToAddPost(): void {
+    this.router.navigate(['/add-post']);
+  }
 }
