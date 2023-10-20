@@ -1,6 +1,7 @@
 <div class="post-container">
   <div class="post-header">
     <span class="username">{{ post.username }}</span>
+    <button *ngIf="isYourPost" class="close-btn" (click)="removePost()">X</button>
   </div>
   <img [src]="post.image" alt="Post image" class="post-image" />
   <div class="post-info">

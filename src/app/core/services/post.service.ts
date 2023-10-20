@@ -42,4 +42,12 @@ export class PostService extends APIService {
     formData.append('description', description);
     return this.post('posts/create/', formData);
   }
+
+  removePost(postId: string): Observable<any> {
+    const formData: FormData = new FormData();
+    formData.append('post_id', postId);
+    return this.delete('posts/delete/', formData).pipe(
+      map((data) => data as LikeResponse)
+    );
+  }
 }

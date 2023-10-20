@@ -60,3 +60,16 @@
 .comment-btn:focus {
   outline: none;
 }
+
+.close-btn {
+  background: none;
+  border: none;
+  font-size: 16px;
+  cursor: pointer;
+  margin-left: auto;
+  padding: 0 10px;
+}
+
+.close-btn:focus {
+  outline: none;
+}

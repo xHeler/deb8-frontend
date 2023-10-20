@@ -1,14 +1,28 @@
-import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
+import {
+  Component,
+  Input,
+  OnChanges,
+  SimpleChanges,
+  OnInit,
+} from '@angular/core';
 import { Post } from 'src/app/core/interfaces/Post';
 import { PostService } from 'src/app/core/services/post.service';
+import { UserService } from 'src/app/core/services/user.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-post',
   templateUrl: './post.component.html',
   styleUrls: ['./post.component.scss'],
 })
-export class PostComponent implements OnChanges {
-  constructor(private postService: PostService) {}
+export class PostComponent implements OnChanges, OnInit {
+  isYourPost: Boolean = false;
+
+  constructor(
+    private postService: PostService,
+    private userService: UserService,
+    private router: Router
+  ) {}
 
   @Input() post: Post = {
     post_id: '',
@@ -23,6 +37,15 @@ export class PostComponent implements OnChanges {
     isLiked: false,
   };
 
+  ngOnInit(): void {
+    const loggedUsername = this.userService.getUsername();
+    if (loggedUsername == this.post.username) {
+      this.isYourPost = true;
+    } else {
+      this.isYourPost = false;
+    }
+  }
+
   ngOnChanges(changes: SimpleChanges) {
     if (changes['post'] && changes['post'].currentValue) {
       const currentImage = changes['post'].currentValue.image;
@@ -36,17 +59,30 @@ export class PostComponent implements OnChanges {
     }
   }
 
+  removePost(): void {
+    this.postService.removePost(this.post.post_id);
+
+    this.postService.removePost(this.post.post_id).subscribe(
+      (response: any) => {
+        console.log('Post removed successfully:', response);
+        window.location.reload();
+      },
+      (error: any) => {
+        console.log('Error removing post:', error);
+      }
+    );
+  }
+
   toggleLike() {
     if (this.post.post_id != '' && !this.post.isLiked) {
       this.postService.likePost(this.post.post_id).subscribe((data: any) => {
-        console.log("Like: " + data);
+        console.log('Like: ' + data);
       });
-      
     } else if (this.post.post_id != '' && this.post.isLiked) {
       this.postService.unlikePost(this.post.post_id).subscribe((data: any) => {
-        console.log("UnLike: " + data);
+        console.log('UnLike: ' + data);
       });
-    } 
+    }
 
     this.post.isLiked = !this.post.isLiked;
     this.post.isLiked ? this.post.likes_count++ : this.post.likes_count--;
