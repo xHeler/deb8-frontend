@@ -19,6 +19,11 @@ export class PostService extends APIService {
     return this.get('posts/').pipe(map((data) => data as PostResponse));
   }
 
+  getPost(postId: string): Observable<PostResponse> {
+    return this.get('posts/' + postId).pipe(map((data) => data as PostResponse))
+  }
+
+
   likePost(postId: string): Observable<LikeResponse> {
     const formData: FormData = new FormData();
     formData.append('post', postId);

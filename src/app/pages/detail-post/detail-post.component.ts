@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { Post } from 'src/app/core/interfaces/Post';
+import { PostService } from 'src/app/core/services/post.service';
 
 
 @Component({
@@ -9,8 +11,9 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class DetailPostComponent implements OnInit {
   uuid: string = '';
+  post!: Post;
 
-  constructor(private route: ActivatedRoute) {}
+  constructor(private route: ActivatedRoute, private postService: PostService) {}
 
   ngOnInit(): void {
     this.route.paramMap.subscribe(params => {
@@ -19,6 +22,16 @@ export class DetailPostComponent implements OnInit {
         this.uuid = uuidParam;
       }
       console.log('UUID:', this.uuid);
+      this.postService.getPost(this.uuid).subscribe(
+        (data: any) => {
+          console.log('Response Data:', data);
+          this.post = data.results ? data.results : data;
+          console.log('Post:', this.post);
+        },
+        (error) => {
+          console.error('Error fetching post:', error);
+        }
+      );
     });
   }
 }
