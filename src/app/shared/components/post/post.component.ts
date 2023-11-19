@@ -108,4 +108,8 @@ export class PostComponent implements OnChanges, OnInit {
       return 'JUST NOW';
     }
   }
+
+  navigateToDetailPost(): void {
+    this.router.navigate(['/detail-post', this.post.post_id]);
+  }
 }

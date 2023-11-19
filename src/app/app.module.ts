@@ -12,6 +12,7 @@ import { LoginPageComponent } from './pages/login-page/login-page.component';
 import { NavbarComponent } from './shared/components/navbar/navbar.component';
 import { RegisterPageComponent } from './pages/register-page/register-page.component';
 import { PostComponent } from './shared/components/post/post.component';
+import { DetailPostComponent } from './pages/detail-post/detail-post.component';
 
 @NgModule({
   declarations: [
@@ -22,6 +23,7 @@ import { PostComponent } from './shared/components/post/post.component';
     NavbarComponent,
     RegisterPageComponent,
     PostComponent,
+    DetailPostComponent,
   ],
   imports: [BrowserModule, AppRoutingModule, HttpClientModule, FormsModule],
   providers: [CookieService],

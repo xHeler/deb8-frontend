@@ -10,7 +10,7 @@
       <ng-template #notLiked>🤍</ng-template>
     </button>
     <span class="likes">{{ post.likes_count | number : "1.0-0" }} likes</span>
-    <button class="comment-btn">💬</button>
+    <button class="comment-btn" (click)="navigateToDetailPost()">💬</button>
     <span class="comments">{{ post.comments_count }} comments</span>
     <p class="caption">
       <span class="username">{{ post.username }}</span> {{ post.description }}
