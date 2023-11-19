@@ -55,4 +55,12 @@ export class PostService extends APIService {
       map((data) => data as LikeResponse)
     );
   }
+
+  createComment(postId: string, text: string): Observable<any> {
+    const formData: FormData = new FormData();
+    formData.append('post', postId);
+    formData.append('text', text);
+    return this.post('comments/create/', formData);
+  }
+
 }

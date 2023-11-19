@@ -4,3 +4,11 @@
     align-items: center;
     flex-direction: column;
 }
+
+label, .form-control {
+    margin-right: 5px;
+}
+
+form {
+    margin: 20px;
+}
