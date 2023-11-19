@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Post } from 'src/app/core/interfaces/Post';
 import { PostService } from 'src/app/core/services/post.service';
+import { Comment } from 'src/app/core/interfaces/Comment';
 
 
 @Component({
@@ -12,6 +13,7 @@ import { PostService } from 'src/app/core/services/post.service';
 export class DetailPostComponent implements OnInit {
   uuid: string = '';
   post!: Post;
+  comments!: Comment[];
 
   constructor(private route: ActivatedRoute, private postService: PostService) {}
 
@@ -26,6 +28,7 @@ export class DetailPostComponent implements OnInit {
         (data: any) => {
           console.log('Response Data:', data);
           this.post = data.results ? data.results : data;
+          this.comments = this.post.comments;
           console.log('Post:', this.post);
         },
         (error) => {

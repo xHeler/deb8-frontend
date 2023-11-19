@@ -1,1 +1,4 @@
 <app-post [post]="post"></app-post>
+<div class="container">
+    <app-comment *ngFor="let comment of comments" [comment]="comment"></app-comment>
+</div>
