@@ -13,6 +13,8 @@ export class DetailPostComponent implements OnInit {
   uuid: string = '';
   post!: Post;
   comments!: Comment[];
+  sortedComments: Comment[] = [];
+  rating: number = 0.0;
   newCommentText: string = '';
 
   constructor(
@@ -32,6 +34,8 @@ export class DetailPostComponent implements OnInit {
           console.log('Response Data:', data);
           this.post = data.results ? data.results : data;
           this.comments = this.post.comments;
+          this.rating = this.calculateRating()
+
           console.log('Post:', this.post);
         },
         (error) => {
@@ -58,4 +62,27 @@ export class DetailPostComponent implements OnInit {
         }
       );
   }
+
+  calculateRating(): number {
+    if (!this.comments || this.comments.length === 0) {
+      return 0.0; // Return 0 if there are no comments
+    }
+  
+    let totalRating = 0;
+    for (const comment of this.comments) {
+      totalRating += comment.rating;
+    }
+  
+    const averageRating = totalRating / this.comments.length;
+    return parseFloat(averageRating.toFixed(2));
+  }
+
+  sortComments(criteria: string): void {
+    if (criteria === 'best') {
+      this.sortedComments = [...this.comments].sort((a, b) => b.rating - a.rating);
+    } else if (criteria === 'newest') {
+      this.sortedComments = this.comments;
+    }
+  }
+  
 }

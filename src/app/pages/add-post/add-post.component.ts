@@ -19,7 +19,7 @@ export class AddPostComponent {
   }
 
   submitPost(): void {
-    if (this.image && this.title && this.description) {
+    if (this.image) {
       this.postService
         .createPost(this.title, this.image, this.description)
         .subscribe(

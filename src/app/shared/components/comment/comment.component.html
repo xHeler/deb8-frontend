@@ -1,5 +1,12 @@
 <div class="container">
+    <button (click)="showRating = !showRating" class="ai">AI 🧠</button>
     <p class="caption">
         <span class="username">{{ comment.author }}</span> {{ comment.text }}
     </p>
+
+    <div class="actions">
+        <p *ngIf="showRating" class="rating">
+            <b>AI Rating:</b> {{ comment.rating }} / 10.0
+        </p>
+    </div>
 </div>

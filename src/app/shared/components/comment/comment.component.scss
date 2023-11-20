@@ -15,3 +15,34 @@
     margin-bottom: -1px;
     border: 1px solid #e0e0e0;
 }
+
+b {
+  color: rgb(181, 181, 181);
+}
+
+.rating {
+  color: red;
+}
+button {
+  background-color: white;
+  border: 1px solid rgb(239, 239, 239);
+  padding: 3px;
+  font-size: 16px;
+  cursor: pointer;
+  margin-left: auto;
+}
+
+button:hover {
+  background-color: lightgray;
+}
+
+.ai {
+  margin-left: 88% !important;
+  background: none;
+  border: none;
+  cursor: pointer;
+  margin-left: auto;
+  padding: 0 10px;
+  position: relative;
+  right: 1;
+}

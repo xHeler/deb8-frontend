@@ -10,7 +10,10 @@ export class CommentComponent {
   @Input() comment: Comment = {
     comment_id: "1",
     author: "author",
-    text: "text"
+    text: "text",
+    rating: 1.1
   }
+
+  showRating: Boolean = false
   
 }
